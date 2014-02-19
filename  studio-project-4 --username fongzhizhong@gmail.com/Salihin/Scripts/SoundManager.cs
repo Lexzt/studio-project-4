@@ -2,10 +2,10 @@
 using System.Collections;
 
 //singleton class to manage all the audio in the game
-public class SoundEffectsHelper : MonoBehaviour {
+public class SoundManager : MonoBehaviour {
 
 	//instance of the class
-	public static SoundEffectsHelper Instance;
+	public static SoundManager SoundInstance;
 
 	//variable to store audio for button click
 	public AudioClip button_click;
@@ -13,14 +13,14 @@ public class SoundEffectsHelper : MonoBehaviour {
 	//function that initializes
 	void Awake()
 	{	
-		if (Instance != null && Instance != this) 
+		if (SoundInstance != null && SoundInstance != this) 
 		{
 			Destroy(this.gameObject);
 			return;
 		}
 		else
 		{
-			Instance = this;
+			SoundInstance = this;
 		}
 		DontDestroyOnLoad(this.gameObject);
 	}

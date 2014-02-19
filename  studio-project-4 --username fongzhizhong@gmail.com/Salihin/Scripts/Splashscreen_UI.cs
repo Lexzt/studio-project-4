@@ -3,34 +3,30 @@ using System.Collections;
 
 //class for Splashscreen's User Interface
 public class Splashscreen_UI : MonoBehaviour {
+	
+	//variables to store gameobject and script
+	GameObject SplashUI;
+	UIManager UIM;
 
-	//public variable to attach a texture for Start button
-	public Texture2D startgame;
-
-	//function to create a button taking in the left and top position of the button, width and height of the button and a text for the button
-	bool CreateButton(float button_left, float button_top, float button_width, float button_height, string text)
+	void Start()
 	{
-		//if button is clicked, return true
-		//if button is not clicked, return false
-		if(GUI.Button(new Rect(button_left, button_top, button_width, button_height), text))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		//assign gameobject and script
+		SplashUI = GameObject.Find("Splashscreen_UI");
+		UIM = SplashUI.GetComponent<UIManager>();
 	}
 
 	//function to render User Interface
 	void OnGUI ()
 	{
-		//if button is clicked or Enter key is pressed, go to Test scene
-		if(CreateButton(Screen.width * 0.1f, Screen.height * 0.8f, Screen.width * 0.8f, Screen.height * 0.1f, "Press To Start")
-		  ||
-		   Input.GetKeyDown(KeyCode.Return))
+		if(!AutoFade.Fading)
 		{
-			Application.LoadLevel ("Mainmenu");
+			//if button is clicked or Enter key is pressed, fade into and go to Mainmenu scene
+			if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.8f, Screen.width * 0.4f, Screen.height * 0.1f, "Press To Start")
+			  ||
+			   Input.GetKeyDown(KeyCode.Return))
+			{
+				AutoFade.LoadLevel("Mainmenu", 3.0f, 1.0f, Color.black);
+			}
 		}
 	}
 }
