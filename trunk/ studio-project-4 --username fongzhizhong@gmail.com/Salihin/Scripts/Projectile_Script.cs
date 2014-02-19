@@ -9,6 +9,9 @@ public class Projectile_Script : MonoBehaviour {
 	//variable to store offset in order for projectile to travel towards the centre
 	private Vector3 offset;
 
+	//variable for projectile's gravity
+	public Vector3 gravity;
+
 	//variables to access variables in another gameobject and script
 	GameObject Player;
 	Player_Script P_S;
@@ -32,6 +35,7 @@ public class Projectile_Script : MonoBehaviour {
 
 		//calculations for projectile to travel
 		Vector3 direction = (Camera.main.transform.forward + offset).normalized;
+		rigidbody.AddForce(gravity);
 		myTransform.Translate(direction * projectile_speed * Time.deltaTime);
 	}
 }
