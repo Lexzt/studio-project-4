@@ -46,9 +46,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\AnimTriggers.cs" />
+     <Compile Include="Assets\Script\BotControlScript.cs" />
      <Compile Include="Assets\Script\MovementScript.cs" />
      <Compile Include="Assets\Script\NetworkManagerScript.cs" />
      <Compile Include="Assets\Script\SphereScript.cs" />
+     <Compile Include="Assets\Script\ThirdPersonCamera.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
