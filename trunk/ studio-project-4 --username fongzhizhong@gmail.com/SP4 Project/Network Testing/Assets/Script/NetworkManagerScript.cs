@@ -16,6 +16,11 @@ public class NetworkManagerScript : MonoBehaviour {
 	public GameObject playerPrefab;
 	public Transform spawnObject;
 
+	public Transform SpawnPoint1;
+	public Transform SpawnPoint2;
+	public Transform SpawnPoint3;
+	public Transform SpawnPoint4;
+
 	// Use this for initialization
 	void Start () {
 		btnX = Screen.width * (float)0.05;
@@ -39,7 +44,17 @@ public class NetworkManagerScript : MonoBehaviour {
 	}
 
 	void spawnPlayer () {
-		Network.Instantiate (playerPrefab, spawnObject.position, Quaternion.identity, 0);
+		//Network.Instantiate (playerPrefab, spawnObject.position, Quaternion.identity, 0);
+		
+		int RandomSpawnPoint = Random.Range (1, 4);
+		if(RandomSpawnPoint == 0)
+			Network.Instantiate (playerPrefab, SpawnPoint1.position, Quaternion.identity, 0);
+		else if(RandomSpawnPoint == 1)
+			Network.Instantiate (playerPrefab, SpawnPoint2.position, Quaternion.identity, 0);
+		else if(RandomSpawnPoint == 2)
+			Network.Instantiate (playerPrefab, SpawnPoint3.position, Quaternion.identity, 0);
+		else if(RandomSpawnPoint == 3)
+			Network.Instantiate (playerPrefab, SpawnPoint4.position, Quaternion.identity, 0);
 	}
 
 	void OnServerInitialized(){

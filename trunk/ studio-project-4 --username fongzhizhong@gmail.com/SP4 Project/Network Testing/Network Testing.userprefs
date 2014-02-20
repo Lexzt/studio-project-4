@@ -1,9 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\SphereScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\..\New Unity Project\Assets\Editor\AstarPathEditor.cs">
     <Files>
-      <File FileName="Assets\Script\NetworkManagerScript.cs" Line="42" Column="1" />
-      <File FileName="Assets\Script\SphereScript.cs" Line="14" Column="40" />
+      <File FileName="..\..\..\..\New Unity Project\Assets\Editor\AstarPathEditor.cs" Line="385" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
