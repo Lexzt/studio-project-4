@@ -47,8 +47,8 @@ public class Mainmenu_UI : MonoBehaviour {
 		//if button is clicked, fade into and go to Exit Game
 		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.7f, Screen.width * 0.4f, Screen.height * 0.1f, "Exit Game"))
 		{
-			Application.Quit();
-			//AutoFade.LoadLevel("ExitScreen", 1.0f, 1.0f, Color.black);
+			//Application.Quit();
+			AutoFade.LoadLevel("Gameplay", 1.0f, 1.0f, Color.black);
 		}
 
 		//if button is clicked or Backspace key is pressed, fade into and go back to previous screen
