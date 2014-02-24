@@ -7,13 +7,24 @@ public class ChatScript : MonoBehaviour
 	
 	private Rect windowRect = new Rect(200, 200, 300, 450);
 	private string messBox = "", messageToSend = "", user = "";
-	
+
+	private bool m_bKeyPress = false;
+
+	private BotControlScript TempObj;
+	void Start ()
+	{
+	}
+
 	private void OnGUI()
 	{
 		GUI.skin = myskin;
-		if (NetworkPeerType.Disconnected != Network.peerType)
-			windowRect = GUI.Window(1, windowRect, windowFunc, "Chat");
-	}
+
+		if(m_bKeyPress == true)
+		{
+			if (NetworkPeerType.Disconnected != Network.peerType)
+				windowRect = GUI.Window(1, windowRect, windowFunc, "Chat");
+		}
+	}	
 	
 	private void windowFunc(int id)
 	{
@@ -30,8 +41,9 @@ public class ChatScript : MonoBehaviour
 		
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("User:");
+
 		user = GUILayout.TextField(user);
-		
+
 		GUILayout.EndHorizontal();
 		
 		GUI.DragWindow(new Rect(0, 0, Screen.width, Screen.height));
@@ -41,5 +53,19 @@ public class ChatScript : MonoBehaviour
 	private void SendMessage(string mess)
 	{
 		messBox += mess;
+	}
+
+	void Update ()
+	{
+		if(Input.GetKeyDown(KeyCode.T))
+		{
+			m_bKeyPress =! m_bKeyPress;
+		}
+
+		TempObj = GameObject.Find ("Robot(Clone)").GetComponent<BotControlScript> ();
+		if(TempObj != null)
+		{
+			user = TempObj.m_sName;
+		}
 	}
 }

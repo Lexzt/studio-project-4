@@ -23,6 +23,8 @@ public class NetworkManagerScript : MonoBehaviour {
 	private string Error;
 	private NetworkConnectionError Error1;
 
+	public string Name = "";
+
 	// Use this for initialization
 	void Start () {
 		btnX = Screen.width * (float)0.05;
@@ -64,7 +66,8 @@ public class NetworkManagerScript : MonoBehaviour {
 	}
 
 	void spawnPlayer () {
-		Network.Instantiate (playerPrefab, spawnObject.position, Quaternion.identity, 0);
+		GameObject NewObj = (GameObject)Network.Instantiate (playerPrefab, spawnObject.position, Quaternion.identity, 0);
+		NewObj.SendMessage ("SetName", Name);
 		Debug.Log ("Test");
 	}
 
@@ -88,6 +91,7 @@ public class NetworkManagerScript : MonoBehaviour {
 		if(!Network.isClient && !Network.isServer){
 			IpAdress 	= GUI.TextField (new Rect (Screen.width/2 - 62, Screen.height/2, 104, 20), IpAdress, 25);
 			Port 		= GUI.TextField (new Rect (Screen.width/2 + 42, Screen.height/2, 50, 20), Port, 25);
+			Name 		= GUI.TextField (new Rect (Screen.width/2 - 62, Screen.height/2 - 20, 154, 20), Name, 25);
 
 			if (GUI.Button (new Rect (Screen.width/2 - 62, Screen.height/2 + 20, 154, 20), "Start Host")) {
 				Debug.Log ("Start Host");
@@ -99,15 +103,15 @@ public class NetworkManagerScript : MonoBehaviour {
 				refreshHostList();
 			}
 
-			if (GUI.Button (new Rect (btnX, btnY, btnW, btnH), "Start Server")) {
-				Debug.Log ("Starting Server");
-				startServer();
-			}
-
-			if (GUI.Button (new Rect (btnX, btnY * (float)1.2 + btnH, btnW, btnH), "Refresh Host")) {
-				Debug.Log ("Refreshing Host");
-				refreshHostList();
-			}
+//			if (GUI.Button (new Rect (btnX, btnY, btnW, btnH), "Start Server")) {
+//				Debug.Log ("Starting Server");
+//				startServer();
+//			}
+//
+//			if (GUI.Button (new Rect (btnX, btnY * (float)1.2 + btnH, btnW, btnH), "Refresh Host")) {
+//				Debug.Log ("Refreshing Host");
+//				refreshHostList();
+//			}
 
 			if(hostData != null){
 				for(int i = 0; i < hostData.Length; i++){

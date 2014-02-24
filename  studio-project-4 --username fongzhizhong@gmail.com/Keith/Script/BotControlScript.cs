@@ -33,8 +33,13 @@ public class BotControlScript : MonoBehaviour
 //	static int waveState = Animator.StringToHash("Layer2.Wave");
 	 
 	private string currentAnimation = "";
-
+	
 	public bool ignoreAnimationLoop;
+
+	public Camera ExternalCamera;
+
+	public string m_sName;
+	 
 	void Start ()
 	{
 		// initialising reference variables
@@ -49,6 +54,8 @@ public class BotControlScript : MonoBehaviour
 	void FixedUpdate ()
 	{
 		if(networkView.isMine){
+			ExternalCamera.enabled = true;
+
 			float h = Input.GetAxis("Horizontal");				// setup h variable as our horizontal input axis
 			float v = Input.GetAxis("Vertical");				// setup v variables as our vertical input axis
 			anim.SetFloat("Speed", v);							// set our animator's float parameter 'Speed' equal to the vertical input axis				
@@ -60,7 +67,7 @@ public class BotControlScript : MonoBehaviour
 			if(anim.layerCount ==2)		
 				layer2CurrentState = anim.GetCurrentAnimatorStateInfo(1);	// set our layer2CurrentState variable to the current state of the second Layer (1) of animation
 
-			Debug.Log(v+" "+h);
+			//Debug.Log(v+" "+h);
 			networkView.RPC("SetFloat",RPCMode.AllBuffered, v);
 			networkView.RPC("SetDir",RPCMode.AllBuffered, h);
 			networkView.RPC("SetAnimSpeed",RPCMode.AllBuffered, animSpeed);
@@ -125,6 +132,10 @@ public class BotControlScript : MonoBehaviour
 				}
 			}
 		}
+		else
+		{
+			ExternalCamera.enabled = false;
+		}
 	}
 
 	[RPC]
@@ -147,4 +158,10 @@ public class BotControlScript : MonoBehaviour
 	void SetAnimSpeed(float newSpeed){
 		anim.speed = newSpeed;
 	}
+
+	void SetName (string Name){
+		m_sName = Name;
+	}
+
+
 }
