@@ -1,0 +1,252 @@
+fileFormatVersion: 2
+guid: e3dff182dc62441b0906a890e879492c
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: chest
+    100004: Core
+    100006: Hair1:polySurface3
+    100008: head
+    100010: jaw
+    100012: joint1
+    100014: L_ankle
+    100016: L_elbow
+    100018: L_finger
+    100020: L_Fingerend
+    100022: L_foot
+    100024: L_hand
+    100026: L_hip
+    100028: L_knee
+    100030: L_shoulder
+    100032: L_thumb
+    100034: L_thumb_end
+    100036: L_thumb_M
+    100038: L_toes
+    100040: L_wrist
+    100042: neck
+    100044: R_ankle
+    100046: R_elbow
+    100048: R_finger
+    100050: R_Fingerend
+    100052: R_foot
+    100054: R_hand
+    100056: R_hip
+    100058: R_knee
+    100060: R_shoulder
+    100062: R_thumb
+    100064: R_thumb_end
+    100066: R_thumb_M
+    100068: R_toes
+    100070: R_wrist
+    100072: Skirt
+    100074: Skirt_end
+    100076: Spine_1
+    100078: Spine_2
+    100080: top
+    400000: //RootNode
+    400002: chest
+    400004: Core
+    400006: Hair1:polySurface3
+    400008: head
+    400010: jaw
+    400012: joint1
+    400014: L_ankle
+    400016: L_elbow
+    400018: L_finger
+    400020: L_Fingerend
+    400022: L_foot
+    400024: L_hand
+    400026: L_hip
+    400028: L_knee
+    400030: L_shoulder
+    400032: L_thumb
+    400034: L_thumb_end
+    400036: L_thumb_M
+    400038: L_toes
+    400040: L_wrist
+    400042: neck
+    400044: R_ankle
+    400046: R_elbow
+    400048: R_finger
+    400050: R_Fingerend
+    400052: R_foot
+    400054: R_hand
+    400056: R_hip
+    400058: R_knee
+    400060: R_shoulder
+    400062: R_thumb
+    400064: R_thumb_end
+    400066: R_thumb_M
+    400068: R_toes
+    400070: R_wrist
+    400072: Skirt
+    400074: Skirt_end
+    400076: Spine_1
+    400078: Spine_2
+    400080: top
+    4300000: Hair1:polySurface3
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Hair1:polySurface3
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 184
+      lastFrame: 220
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Core
+        weight: 1
+      - path: Core/L_hip
+        weight: 1
+      - path: Core/L_hip/L_knee
+        weight: 1
+      - path: Core/L_hip/L_knee/L_ankle
+        weight: 1
+      - path: Core/L_hip/L_knee/L_ankle/L_foot
+        weight: 1
+      - path: Core/L_hip/L_knee/L_ankle/L_foot/L_toes
+        weight: 1
+      - path: Core/R_hip
+        weight: 1
+      - path: Core/R_hip/R_knee
+        weight: 1
+      - path: Core/R_hip/R_knee/R_ankle
+        weight: 1
+      - path: Core/R_hip/R_knee/R_ankle/R_foot
+        weight: 1
+      - path: Core/R_hip/R_knee/R_ankle/R_foot/R_toes
+        weight: 1
+      - path: Core/Skirt
+        weight: 1
+      - path: Core/Skirt/Skirt_end
+        weight: 1
+      - path: Core/Spine_2
+        weight: 1
+      - path: Core/Spine_2/Spine_1
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/L_shoulder
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/L_shoulder/L_elbow
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/L_shoulder/L_elbow/L_wrist/L_hand
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/L_shoulder/L_elbow/L_wrist/L_hand/L_finger
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/L_shoulder/L_elbow/L_wrist/L_hand/L_finger/L_Fingerend
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/L_shoulder/L_elbow/L_wrist/L_hand/L_thumb
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/L_shoulder/L_elbow/L_wrist/L_hand/L_thumb/L_thumb_M
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/L_shoulder/L_elbow/L_wrist/L_hand/L_thumb/L_thumb_M/L_thumb_end
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/neck
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/neck/head
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/neck/head/jaw
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/neck/head/top
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder/R_elbow
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder/R_elbow/R_wrist/R_hand
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder/R_elbow/R_wrist/R_hand/joint1
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder/R_elbow/R_wrist/R_hand/R_finger
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder/R_elbow/R_wrist/R_hand/R_finger/R_Fingerend
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder/R_elbow/R_wrist/R_hand/R_thumb
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder/R_elbow/R_wrist/R_hand/R_thumb/R_thumb_M
+        weight: 1
+      - path: Core/Spine_2/Spine_1/chest/R_shoulder/R_elbow/R_wrist/R_hand/R_thumb/R_thumb_M/R_thumb_end
+        weight: 1
+      - path: Hair1:polySurface3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .200000003
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  userData: 
