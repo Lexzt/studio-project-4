@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class NetworkManagerScript : MonoBehaviour {
+
+	static public bool m_bIsInitalized = false;
 
 	private float btnX;
 	private float btnY;
@@ -23,28 +25,77 @@ public class NetworkManagerScript : MonoBehaviour {
 	private string Error;
 	private NetworkConnectionError Error1;
 
+	public string Name = "";
+
+
+	//ADDED
+	//=====
 	//variables to store gameobject and script
 	GameObject SplashUI;
 	UIManager UIM;
 
 	//variable to store text upon mouse hover of BACK button
+	private string YesButtonTxt;
+	
+	//variable to store text upon mouse hover of BACK button
+	private string NoButtonTxt;
+	
+	//variable to display buttons
+	private bool showExitScreen;
+
+	//variable to store text upon mouse hover of BACK button
 	private string BackButtonTxt;
 
-	private bool showJoinGameInfo;
+	float alpha;
+
+	public int numofplayers;
+
+	bool showMsg, showButt;
+
+	private string Msg;
+	
+	private string IPAddLabel, PortLabel, NameLabel;
+
+	private int numofconnectedplayers;
+	//=====
 
 	// Use this for initialization
 	void Start () {
-		btnX = Screen.width * (float)0.01;
+		btnX = Screen.width * (float)0.05;
 		btnY = Screen.height * (float)0.05;
 		btnW = Screen.width * (float)0.1;
 		btnH = Screen.height * (float)0.1;
 
+//		Inst.MeeleAIFab = (GameObject)MeeleAI;
+//		Inst.RangeAIFeb = (GameObject)RangeAI;
+
+
+		//ADDED
+		//=====
 		//assign gameobject and script
-		SplashUI = GameObject.Find("Splashscreen_UI");
+		SplashUI = GameObject.Find("UI");
 		UIM = SplashUI.GetComponent<UIManager>();
 
+		YesButtonTxt = "Click or Press Y";
+		NoButtonTxt = "Click or Press N";
+		
+		showExitScreen = false;
+
 		BackButtonTxt = "Click or Press ESC";
-		showJoinGameInfo = false;
+
+		alpha = 1.0f;
+
+		showMsg = false;
+		showButt = true;
+
+		Msg = "Waiting for more players";
+
+		IPAddLabel = "IPADDRESS: ";
+		PortLabel = "PORT: ";
+		NameLabel = "NAME: ";
+
+		numofconnectedplayers = 0;
+		//=====
 	}
 
 	void startServer() {
@@ -57,10 +108,14 @@ public class NetworkManagerScript : MonoBehaviour {
 		Network.connectionTesterIP = IpAddress;
 		Network.connectionTesterPort = int.Parse(Port);
 		Network.proxyIP = IpAddress;
-		Network.InitializeServer (10, 25002, !Network.HavePublicAddress ());
+		Network.InitializeServer (numofplayers, 25002, !Network.HavePublicAddress ());
 		
 		MasterServer.RegisterHost(gameName,"Testing Server Name", "This is a Notification");
 
+		//ADDED
+		//=====
+		//refreshing = true;
+		//=====
 	}
 
 	void refreshHostList(){
@@ -77,21 +132,47 @@ public class NetworkManagerScript : MonoBehaviour {
 		Network.proxyIP = IpAddress;
 		MasterServer.RequestHostList (gameName);
 		refreshing = true;
+
+		//ADDED
+		//====
+		showButt = false;
+		//====
 	}
 
 	void spawnPlayer () {
-		Network.Instantiate (playerPrefab, spawnObject.position, Quaternion.identity, 0);
+		GameObject NewObj = (GameObject)Network.Instantiate (playerPrefab, spawnObject.position, Quaternion.identity, 0);
+		NewObj.SendMessage ("SetName", Name);
 		Debug.Log ("Test");
 	}
 
 	void OnServerInitialized(){
 		Debug.Log ("Server Initalize");
-		spawnPlayer ();
+
+		if(numofconnectedplayers == numofplayers)
+		{
+			m_bIsInitalized = true;
+			spawnPlayer();
+		}
+		else if(numofconnectedplayers < numofplayers)
+		{
+			showMsg = true;
+		}
 	}
 
 	void OnConnectedToServer(){
 		Debug.Log ("I am here");
-		spawnPlayer ();
+
+		//ADDED
+		//=====
+		if(numofconnectedplayers == numofplayers)
+		{
+			spawnPlayer ();
+		}
+		else if(numofconnectedplayers < numofplayers)
+		{
+			showMsg = true;
+		}
+		//=====
 	}
 	
 	void OnMasterServerEvent(MasterServerEvent mse){
@@ -100,90 +181,154 @@ public class NetworkManagerScript : MonoBehaviour {
 		}
 	}
 
+//	void OnPlayerConnected()
+//	{
+//		refreshing = true;
+//		numofconnectedplayers = Network.connections.Length;
+//
+//		if(numofconnectedplayers == numofplayers)
+//		{
+//			showMsg = false;
+//		}
+//	}
+
 	void OnGUI () {
 		if(!Network.isClient && !Network.isServer){
+//			IpAddress 	= GUI.TextField (new Rect (Screen.width/2 - 62, Screen.height/2, 104, 20), IpAddress, 25);
+//			Port 		= GUI.TextField (new Rect (Screen.width/2 + 42, Screen.height/2, 50, 20), Port, 25);
+//			Name 		= GUI.TextField (new Rect (Screen.width/2 - 62, Screen.height/2 - 20, 154, 20), Name, 25);
 
-			//if (GUI.Button (new Rect (btnX, btnY, btnW, btnH), "Start Server")) 
-			if (UIM.CreateButton(btnX, btnY, btnW, btnH, "Start Server")) 
+			//ADDED
+			//=====
+			if(showButt)
 			{
-				Debug.Log ("Starting Server");
-				startServer();
-			}
+				//box for NAME
+				UIM.CreateBox(Screen.width * 0.4f, Screen.height * 0.4f, Screen.width * 0.1f, Screen.height * 0.04f, NameLabel);
 
-			//if (GUI.Button (new Rect (btnX, btnY * (float)1.2 + btnH, btnW, btnH), "Refresh Host")) 
-			if (UIM.CreateButton(btnX, btnY * (float)1.2 + btnH, btnW, btnH, "Join Game")) 
+				//box for IPADDRESS
+				UIM.CreateBox(Screen.width * 0.4f, Screen.height * 0.44f, Screen.width * 0.1f, Screen.height * 0.04f, IPAddLabel);
+
+				//box for PORT
+				UIM.CreateBox(Screen.width * 0.4f, Screen.height * 0.48f, Screen.width * 0.1f, Screen.height * 0.04f, PortLabel);
+				//=====
+
+				Name 		= GUI.TextField (new Rect (Screen.width * 0.5f, Screen.height * 0.4f, Screen.width * 0.1f, Screen.height * 0.04f), Name, 25);
+				IpAddress 	= GUI.TextField (new Rect (Screen.width * 0.5f, Screen.height * 0.44f, Screen.width * 0.1f, Screen.height * 0.04f), IpAddress, 25);
+				Port 		= GUI.TextField (new Rect (Screen.width * 0.5f, Screen.height * 0.48f, Screen.width * 0.1f, Screen.height * 0.04f), Port, 25);
+
+				if (GUI.Button (new Rect (Screen.width * 0.4f, Screen.height * 0.52f, Screen.width * 0.2f, Screen.height * 0.04f), "Start Host")) {
+					Debug.Log ("Start Host");
+
+					startServer();
+				}
+				
+				if (GUI.Button (new Rect (Screen.width * 0.4f, Screen.height * 0.56f, Screen.width * 0.2f, Screen.height * 0.04f), "Refresh Host")) {
+					Debug.Log ("Refresh Host");
+
+					refreshHostList();
+				}
+			}
+			else
 			{
-				showJoinGameInfo = true;
-			}
-
-			if(hostData != null){
-				for(int i = 0; i < hostData.Length; i++){
-					if (GUI.Button (new Rect (btnX * (float)1.5 + btnW, 
-					                          btnY * (float)1.2 + (btnH * i), 
-					                          btnW * (float)3, 
-					                          btnH * (float)0.5), 
-					                hostData[i].gameName)) {
-						Error1 = Network.Connect(hostData[i].ip[0],hostData[i].port);
-						Debug.Log (hostData[i].ip[0]);
-						Error += Error1;
+				if(hostData != null){
+					for(int i = 0; i < hostData.Length; i++){
+						if (GUI.Button (new Rect (Screen.width * 0.4f, 
+						                          Screen.height * 0.5f, 
+						                          Screen.width * 0.2f, 
+						                          Screen.height * 0.05f), 
+						                hostData[i].gameName)) {
+							Error1 = Network.Connect(hostData[i].ip[0],hostData[i].port);
+							Debug.Log (hostData[i].ip[0]);
+							Error += Error1;
+						}
 					}
 				}
 			}
+
+			//ADDED
+			//=====
+			//if button is clicked or Backspace key is pressed, fade into and go back to previous screen
+			if(UIM.CreateButton(Screen.width * 0.01f, Screen.height * 0.88f, Screen.width * 0.05f, Screen.height * 0.1f, "BACK", "BACKBUTTON")
+			   ||
+		   	   Input.GetKeyDown(KeyCode.Escape))
+			{
+				int mainmenu = PlayerPrefs.GetInt("mainmenu");
+				AutoFade.LoadLevel(mainmenu, 1.0f, 1.0f, Color.black);
+			}
+			
+			if(GUI.tooltip == "BACKBUTTON")
+			{
+				UIM.mouseOver = true;
+			}
+			else
+			{
+				UIM.mouseOver = false;
+			}
+			
+			if(UIM.mouseOver && GUI.tooltip == "BACKBUTTON")
+			{
+				UIM.CreateBox(Screen.width * 0.01f, Screen.height * 0.82f, Screen.width * 0.1f, Screen.height * 0.05f, BackButtonTxt);
+			}
+			//=====
 		}
+		//ADDED
+		//=====
+		else if(Network.isClient || Network.isServer)
+		{
+			if(showExitScreen)
+			{
+				GUI.DrawTexture(new Rect(0.0f, 0.0f, Screen.width, Screen.height), UIM.pauseTexture);
+				
+				//if button is clicked or Backspace key is pressed, fade into and go back to previous screen
+				if(	UIM.CreateButton(Screen.width * 0.4f, Screen.height * 0.45f, Screen.width * 0.1f, Screen.height * 0.1f, "YES", "YESBUTTON")
+				   ||
+				   Input.GetKeyDown("y"))
+				{
+					Network.Disconnect();
+					//DestroyObject(LobbyScript);
+					DestroyObject(this);
+					AutoFade.LoadLevel("Mainmenu", 1.0f, 1.0f, Color.black);
+				}
+				
+				//if button is clicked or Backspace key is pressed, fade into and go back to previous screen
+				if(UIM.CreateButton(Screen.width * 0.5f, Screen.height * 0.45f, Screen.width * 0.1f, Screen.height * 0.1f, "NO", "NOBUTTON")
+				   ||
+				   Input.GetKeyDown("n"))
+				{
+					showExitScreen = false;
+				}
+				
+				if(GUI.tooltip == "YESBUTTON" || GUI.tooltip == "NOBUTTON")
+				{
+					UIM.mouseOver = true;
+				}
+				else
+				{
+					UIM.mouseOver = false;
+				}
+				
+				if(GUI.tooltip == "YESBUTTON" && UIM.mouseOver)
+				{
+					UIM.CreateBox(Screen.width * 0.4f, Screen.height * 0.4f, Screen.width * 0.1f, Screen.height * 0.05f, YesButtonTxt);
+				}
+				else if(GUI.tooltip == "NOBUTTON" && UIM.mouseOver)
+				{
+					UIM.CreateBox(Screen.width * 0.5f, Screen.height * 0.4f, Screen.width * 0.1f, Screen.height * 0.05f, NoButtonTxt);
+				}
+			}
+
+			if(showMsg)
+			{
+				UIM.CreateBox(Screen.width * 0.4f, Screen.height * 0.5f, Screen.width * 0.2f, Screen.height * 0.05f, Msg);
+			}
+		}
+		//=====
 
 		if(Error != null)
 		{
 			GUI.Label (new Rect (300, 300, 200, 50),Error);
 		}
-
-		//if button is clicked or Backspace key is pressed, fade into and go back to previous screen
-		if(UIM.CreateButton(Screen.width * 0.01f, Screen.height * 0.88f, Screen.width * 0.05f, Screen.height * 0.1f, "BACK", "BACKBUTTON")
-		   ||
-		   Input.GetKeyDown(KeyCode.Escape))
-		{
-			int mainmenu = PlayerPrefs.GetInt("mainmenu");
-			AutoFade.LoadLevel(mainmenu, 1.0f, 1.0f, Color.black);
-		}
-		
-		if(GUI.tooltip == "BACKBUTTON")
-		{
-			UIM.mouseOver = true;
-		}
-		else
-		{
-			UIM.mouseOver = false;
-		}
-		
-		if(UIM.mouseOver && GUI.tooltip == "BACKBUTTON")
-		{
-			UIM.CreateBox(Screen.width * 0.01f, Screen.height * 0.82f, Screen.width * 0.1f, Screen.height * 0.05f, BackButtonTxt);
-		}
-
-		if(showJoinGameInfo)
-		{
-			//IpAdress 	= GUI.TextField (new Rect (Screen.width/2 - 62, Screen.height/2, 104, 20), IpAdress, 25);
-			//Port 		= GUI.TextField (new Rect (Screen.width/2 + 42, Screen.height/2, 50, 20), Port, 25);
-			
-			UIM.CreateBox(Screen.width * 0.01f, btnY * (float)2.4 + btnH + 25, 80, 20, "IPAddress");
-			UIM.CreateBox(Screen.width * 0.075f + 105, btnY * (float)2.4 + btnH + 25, 30, 20, "Port");
-			
-			IpAddress 	= GUI.TextField (new Rect (Screen.width * 0.07f, btnY * (float)2.4 + btnH + 25, 105, 20), IpAddress, 25);
-			Port 		= GUI.TextField (new Rect (Screen.width * 0.07f + 145, btnY * (float)2.4 + btnH + 25, 50, 20), Port, 25);
-			
-			if (GUI.Button (new Rect (Screen.width * 0.01f, btnY * (float)2.4 + btnH + 45, 155, 20), "Start Host"))
-			{
-				Debug.Log ("Start Host");
-				startServer();
-			}
-			
-			if (GUI.Button (new Rect (Screen.width * 0.01f, btnY * (float)2.4 + btnH + 65, 155, 20), "Refresh Host")) {
-				Debug.Log ("Refresh Host");
-				refreshHostList();
-			}
-		}
 	}
-
-
 	
 	// Update is called once per frame
 	void Update () {
@@ -194,11 +339,85 @@ public class NetworkManagerScript : MonoBehaviour {
 				hostData = MasterServer.PollHostList();
 			}
 		}
+
+		//ADDED
+		//=====
+		//numofconnectedplayers = Network.connections.Length;
+		//Debug.Log("numofconnectedplayers: " + numofconnectedplayers);
+		
+		//ADDED
+		//=====
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			if(!showExitScreen)
+			{
+				showExitScreen = true;
+			}
+			else
+			{
+				showExitScreen = false;
+			}
+		}
+		//=====
 	}
 
 	void OnFailedToConnect(NetworkConnectionError error) {
 		Debug.Log("Could not connect to server: "+ error);
 		Error = "Could not connect to server: " + error;
 	}
-
 }
+/*
+We're no strangers to love 
+You know the rules and so do I 
+A full commitment's what I'm thinking of 
+You wouldn't get this from any other guy 
+I just wanna tell you how I'm feeling 
+Gotta make you understand
+
+Never gonna give you up, 
+Never gonna let you down 
+Never gonna run around and desert you 
+Never gonna make you cry, 
+Never gonna say goodbye 
+Never gonna tell a lie and hurt you 
+
+We've known each other for so long 
+Your heart's been aching but you're too shy to say it 
+Inside we both know what's been going on 
+We know the game and we're gonna play it 
+And if you ask me how I'm feeling 
+Don't tell me you're too blind to see
+
+Never gonna give you up, 
+Never gonna let you down 
+Never gonna run around and desert you 
+Never gonna make you cry, 
+Never gonna say goodbye 
+Never gonna tell a lie and hurt you 
+
+(Ooh give you up) 
+(Ooh give you up) 
+(Ooh) never gonna give, never gonna give 
+(give you up) 
+(Ooh) never gonna give, never gonna give 
+(give you up) 
+
+We've known each other for so long 
+Your heart's been aching but you're too shy to say it 
+Inside we both know what's been going on 
+We know the game and we're gonna play it
+
+We're no strangers to love 
+You know the rules and so do I 
+A full commitment's what I'm thinking of 
+You wouldn't get this from any other guy 
+I just wanna tell you how I'm feeling 
+Gotta make you understand
+
+Never gonna give you up, 
+Never gonna let you down 
+Never gonna run around and desert you 
+Never gonna make you cry, 
+Never gonna say goodbye 
+Never gonna tell a lie and hurt you 
+*/

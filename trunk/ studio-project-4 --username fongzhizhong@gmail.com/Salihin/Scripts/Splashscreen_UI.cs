@@ -14,7 +14,7 @@ public class Splashscreen_UI : MonoBehaviour {
 	void Start()
 	{
 		//assign gameobject and script
-		SplashUI = GameObject.Find("Splashscreen_UI");
+		SplashUI = GameObject.Find("UI");
 		UIM = SplashUI.GetComponent<UIManager>();
 
 		StartButtonTxt = "Click or Press Enter";
@@ -25,6 +25,9 @@ public class Splashscreen_UI : MonoBehaviour {
 	{
 		//store this scene for other scenes to refer to
 		PlayerPrefs.SetInt("splashscreen", Application.loadedLevel);
+
+		//draw splashscreen background texture
+		UIM.CreateTexture(UIM.splashscreen, 0.0f, 0.0f, Screen.width, Screen.height, false);
 
 		if(!AutoFade.Fading)
 		{

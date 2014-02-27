@@ -14,7 +14,7 @@ public class Mainmenu_UI : MonoBehaviour {
 	void Start()
 	{
 		//assign gameobject and script
-		SplashUI = GameObject.Find("Splashscreen_UI");
+		SplashUI = GameObject.Find("UI");
 		UIM = SplashUI.GetComponent<UIManager>();
 
 		BackButtonTxt = "Click or Press ESC";
@@ -26,29 +26,35 @@ public class Mainmenu_UI : MonoBehaviour {
 		//store this scene for other scenes to refer to
 		PlayerPrefs.SetInt("mainmenu", Application.loadedLevel);
 
+//		//if button is clicked, fade into and go to Lobby scene
+//		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.1f, Screen.width * 0.4f, Screen.height * 0.1f, "LOBBY"))
+//		{
+//			AutoFade.LoadLevel("Lobby", 1.0f, 1.0f, Color.black);
+//		}
+
 		//if button is clicked, fade into and go to Lobby scene
-		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.1f, Screen.width * 0.4f, Screen.height * 0.1f, "Lobby"))
+		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.1f, Screen.width * 0.4f, Screen.height * 0.1f, "PLAY"))
 		{
-			AutoFade.LoadLevel("Lobby", 1.0f, 1.0f, Color.black);
+			AutoFade.LoadLevel("Gameplay", 1.0f, 1.0f, Color.black);
 		}
 
-		//if button is clicked, fade into and go to Options scene
-		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.3f, Screen.width * 0.4f, Screen.height * 0.1f, "Options"))
-		{
-			AutoFade.LoadLevel("Options", 1.0f, 1.0f, Color.black);
-		}
+//		//if button is clicked, fade into and go to Options scene
+//		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.3f, Screen.width * 0.4f, Screen.height * 0.1f, "OPTIONS"))
+//		{
+//			AutoFade.LoadLevel("Options", 1.0f, 1.0f, Color.black);
+//		}
 
 		//if button is clicked, fade into and go to Credits scene
-		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.5f, Screen.width * 0.4f, Screen.height * 0.1f, "Credits"))
+		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.5f, Screen.width * 0.4f, Screen.height * 0.1f, "CREDITS"))
 		{
 			AutoFade.LoadLevel("Credits", 1.0f, 1.0f, Color.black);
 		}
 
 		//if button is clicked, fade into and go to Exit Game
-		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.7f, Screen.width * 0.4f, Screen.height * 0.1f, "Exit Game"))
+		if(UIM.CreateButton(Screen.width * 0.3f, Screen.height * 0.7f, Screen.width * 0.4f, Screen.height * 0.1f, "EXIT"))
 		{
-			//Application.Quit();
-			AutoFade.LoadLevel("Gameplay", 1.0f, 1.0f, Color.black);
+			Application.Quit();
+			//AutoFade.LoadLevel("Gameover", 1.0f, 1.0f, Color.black);
 		}
 
 		//if button is clicked or Backspace key is pressed, fade into and go back to previous screen

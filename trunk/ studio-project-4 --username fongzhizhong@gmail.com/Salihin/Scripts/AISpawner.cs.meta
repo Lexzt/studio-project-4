@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 4d7428d1ba4ddbf4babf54993b86a0d5
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - MeeleAIFab: {fileID: 100000, guid: 38d3d14042235504b8fc176eb6087129, type: 2}
+  - RangeAIFeb: {fileID: 100000, guid: 29e5ef4ff7f49544596ebd966cc48685, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
