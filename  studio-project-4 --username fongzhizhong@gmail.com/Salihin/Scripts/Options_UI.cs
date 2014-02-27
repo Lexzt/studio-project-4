@@ -14,7 +14,7 @@ public class Options_UI : MonoBehaviour {
 	void Start()
 	{
 		//assign gameobject and script
-		SplashUI = GameObject.Find("Splashscreen_UI");
+		SplashUI = GameObject.Find("UI");
 		UIM = SplashUI.GetComponent<UIManager>();
 
 		BackButtonTxt = "Click or Press ESC";

@@ -24,7 +24,7 @@ public class Projectile_Script : MonoBehaviour {
 		//store the transform of the gameobject that this script is attached to
 		myTransform = transform;
 
-		Player = GameObject.Find("Player");
+		Player = GameObject.Find("PlayerTest");
 		P_S = Player.GetComponent<Player_Script>();
 
 		offset = new Vector3(-1.0f * P_S.ItemOffset.x, 0.0f, 20.0f).normalized;
