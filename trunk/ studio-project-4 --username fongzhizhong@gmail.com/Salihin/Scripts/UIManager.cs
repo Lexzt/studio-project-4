@@ -7,10 +7,76 @@ public class UIManager : MonoBehaviour {
 	public static UIManager UIInstance;
 
 	//public variable to attach a texture for Start button
-	public Texture startgame;
+	public Texture2D start;
+
+	//public variable to attach a texture for Play button
+	public Texture2D play;
+
+	//public variable to attach a texture for Options button
+	public Texture2D options;
+
+	//public variable to attach a texture for About button
+	public Texture2D about;
+
+	//public variable to attach a texture for Credits button
+	public Texture2D credits;
+
+	//public variable to attach a texture for Exit button
+	public Texture2D exit;
+
+	//public variable to attach a texture for Back button
+	public Texture2D back;
+
+	//public variable to attach a texture for Up button
+	public Texture2D up;
+
+	//public variable to attach a texture for Down button
+	public Texture2D down;
+
+	//public variable to attach a texture for Left button
+	public Texture2D left;
+
+	//public variable to attach a texture for Right button
+	public Texture2D right;
+
+	//public variable to attach a texture for Music label
+	public Texture2D music;
+
+	//public variable to attach a texture for SFX label
+	public Texture2D sfx;
 
 	//public variable to attach a texture for splashscreen background
-	public Texture splashscreen;
+	public Texture splashscreen_background;
+
+	//public variable to attach a texture for main menu background
+	public Texture mainmenu_background;
+
+	//public variable to attach a texture for options background
+	public Texture options_background;
+
+	//public variable to attach a texture for about background
+	public Texture about_background;
+
+	//public variable to attach a texture for credits background
+	public Texture credits_background;
+
+	//public variable to attach a texture for About Panel 1
+	public Texture2D aboutpanel1;
+
+	//public variable to attach a texture for About Panel 2
+	public Texture2D aboutpanel2;
+
+	//public variable to attach a texture for Credits Panel 1
+	public Texture2D creditspanel1;
+
+	//public variable to attach a texture for Yes button
+	public Texture2D yes;
+
+	//public variable to attach a texture for No button
+	public Texture2D no;
+
+	//public variable to attach a texture for Continue button
+	public Texture2D continue_btn;
 
 	//public variable to attach a texture for bloodsplatter
 	public Texture bloodsplatter;
@@ -18,15 +84,33 @@ public class UIManager : MonoBehaviour {
 	//public variable to attach texture for Pause overlay
 	public Texture pauseTexture;
 
+	//public variable to attach a texture for Pause message
+	public Texture2D pause_msg;
+
 	//public variable to attach texture for gameover background
-	public Texture gameoverTextuire;
+	public Texture gameover_background;
+
+	//public variable to attach a texture for Gameover message
+	public Texture2D gameover_msg;
+
+	//public variable to attach a texture for Enter text
+	public Texture2D enter_text;
+
+	//public variable to attach a texture for ESC text
+	public Texture2D esc_text;
+
+	//public variable to attach a texture for Yes text
+	public Texture2D yes_text;
+
+	//public variable to attach a texture for No text
+	public Texture2D no_text;
 
 	//variable to store texture's alpha
 	private float alpha;
 	
 	//variables to store rendom position for texture
 	private float randleft, randtop;
-	
+
 	//variable to reduce alpha by
 	public float reduce_alpha;
 
@@ -38,6 +122,8 @@ public class UIManager : MonoBehaviour {
 
 	//variables to store Color of health bar and current health bar
 	private Color healthColor, currhealthColor;
+
+	public GUIStyle btnstyle;
 
 	//function that initializes
 	void Awake()
@@ -72,6 +158,21 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 
+	//function to create a button taking in the left and top position of the button, width and height of the button and a texture for the button
+	public bool CreateButton(float button_left, float button_top, float button_width, float button_height, Texture2D texture)
+	{
+		//if button is clicked, return true
+		//if button is not clicked, return false
+		if(GUI.Button(new Rect(button_left, button_top, button_width, button_height), texture, btnstyle))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	//function to create a button taking in the left and top position of the button, width and height of the button and a text for the button
 	public bool CreateButton(float button_left, float button_top, float button_width, float button_height, string text, string tooltip)
 	{
@@ -92,7 +193,7 @@ public class UIManager : MonoBehaviour {
 	{
 		//if button is clicked, return true
 		//if button is not clicked, return false
-		if(GUI.Button(new Rect(button_left, button_top, button_width, button_height), new GUIContent(texture, tooltip), GUIStyle.none))
+		if(GUI.Button(new Rect(button_left, button_top, button_width, button_height), new GUIContent(texture, tooltip), btnstyle))
 		{
 			return true;
 		}
@@ -105,6 +206,11 @@ public class UIManager : MonoBehaviour {
 	public void CreateBox(float box_left, float box_top, float box_width, float box_height, string text)
 	{
 		GUI.Box(new Rect(box_left, box_top, box_width, box_height), text);
+	}
+
+	public void CreateBox(float box_left, float box_top, float box_width, float box_height, Texture2D texture)
+	{
+		GUI.Box(new Rect(box_left, box_top, box_width, box_height), texture);
 	}
 
 	//function to draw texture at a random position with a specific width and height
@@ -157,7 +263,7 @@ public class UIManager : MonoBehaviour {
 	}
 
 	//function to draw health bar
-	private void DrawRect(float left, float top, float width, float height, Color color)
+	public void DrawRect(float left, float top, float width, float height, Color color)
 	{
 		Texture2D texture = new Texture2D(1, 1);
 		texture.SetPixel(0, 0, color);

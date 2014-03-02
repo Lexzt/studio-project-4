@@ -25,6 +25,9 @@ public class SoundManager : MonoBehaviour {
 	//variables to store audio related to enemy
 	public AudioClip growl1, growl2, growl3, growl4, jumping, enemy_attack;
 
+	//variable to store volume of SoundEffects
+	public float SoundEffVolume;
+
 	//function that initializes
 	void Awake()
 	{	
@@ -40,115 +43,115 @@ public class SoundManager : MonoBehaviour {
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	//function for button click sound
-	public void MakeButtonClick()
-	{
-		MakeSound(button_click);
-	}
-
-	//function for foot steps sound
-	public void MakeFootSteps()
-	{
-		MakeSound(foot_steps);
-	}
-
-	//function for limping foot steps sound
-	public void MakeLimping()
-	{
-		MakeSound(limping_fs);
-	}
-
-	//function for got attacked sound
-	public void MakeGotAttacked()
-	{
-		MakeSound(got_attacked);
-	}
-
-	//function for character attack sound
-	public void MakeCharAttack()
-	{
-		MakeSound(char_attack);
-	}
-
-	//function for door sound
-	public void MakeDoor()
-	{
-		MakeSound(door);
-	}
-
-	//function for wood sound
-	public void MakeWood()
-	{
-		MakeSound(wood);
-	}
-
-	//function for dropping sound
-	public void MakeDropping()
-	{
-		MakeSound(dropping);
-	}
-
-	//function for clock sound
-	public void MakeClock()
-	{
-		MakeSound(clock);
-	}
-
-	//function for creeping sound
-	public void MakeCreeping()
-	{
-		MakeSound(creeping);
-	}
-
-	//function for wind sound
-	public void MakeWind()
-	{
-		MakeSound(wind);
-	}
-
-	//function for narration sound
-	public void MakeNarration()
-	{
-		MakeSound(narration);
-	}	
-
-	//function for growl sounds
-	public void MakeGrowl(int growlnum)
-	{
-		if(growlnum == 1)
-		{
-			MakeSound(growl1);
-		}
-		else if(growlnum == 2)
-		{
-			MakeSound(growl2);
-		}
-		else if(growlnum == 3)
-		{
-			MakeSound(growl3);
-		}
-		else if(growlnum == 4)
-		{
-			MakeSound(growl4);
-		}
-	}
-
-	//function for jumping sound
-	public void MakeJumping()
-	{
-		MakeSound(jumping);
-	}
-
-	//function for enemy attack sound
-	public void MakeEnemyAttack()
-	{
-		MakeSound(enemy_attack);
-	}
+//	//function for button click sound
+//	public void MakeButtonClick()
+//	{
+//		MakeSound(button_click);
+//	}
+//
+//	//function for foot steps sound
+//	public void MakeFootSteps()
+//	{
+//		MakeSound(foot_steps);
+//	}
+//
+//	//function for limping foot steps sound
+//	public void MakeLimping()
+//	{
+//		MakeSound(limping_fs);
+//	}
+//
+//	//function for got attacked sound
+//	public void MakeGotAttacked()
+//	{
+//		MakeSound(got_attacked);
+//	}
+//
+//	//function for character attack sound
+//	public void MakeCharAttack()
+//	{
+//		MakeSound(char_attack);
+//	}
+//
+//	//function for door sound
+//	public void MakeDoor()
+//	{
+//		MakeSound(door);
+//	}
+//
+//	//function for wood sound
+//	public void MakeWood()
+//	{
+//		MakeSound(wood);
+//	}
+//
+//	//function for dropping sound
+//	public void MakeDropping()
+//	{
+//		MakeSound(dropping);
+//	}
+//
+//	//function for clock sound
+//	public void MakeClock()
+//	{
+//		MakeSound(clock);
+//	}
+//
+//	//function for creeping sound
+//	public void MakeCreeping()
+//	{
+//		MakeSound(creeping);
+//	}
+//
+//	//function for wind sound
+//	public void MakeWind()
+//	{
+//		MakeSound(wind);
+//	}
+//
+//	//function for narration sound
+//	public void MakeNarration()
+//	{
+//		MakeSound(narration);
+//	}	
+//
+//	//function for growl sounds
+//	public void MakeGrowl(int growlnum)
+//	{
+//		if(growlnum == 1)
+//		{
+//			MakeSound(growl1);
+//		}
+//		else if(growlnum == 2)
+//		{
+//			MakeSound(growl2);
+//		}
+//		else if(growlnum == 3)
+//		{
+//			MakeSound(growl3);
+//		}
+//		else if(growlnum == 4)
+//		{
+//			MakeSound(growl4);
+//		}
+//	}
+//
+//	//function for jumping sound
+//	public void MakeJumping()
+//	{
+//		MakeSound(jumping);
+//	}
+//
+//	//function for enemy attack sound
+//	public void MakeEnemyAttack()
+//	{
+//		MakeSound(enemy_attack);
+//	}
 
 	//function to load in and play audio
-	private void MakeSound(AudioClip originalClip)
+	public void MakeSound(AudioClip originalClip, Vector3 position)
 	{
-		AudioSource.PlayClipAtPoint(originalClip, transform.position);
-		//AudioSource.PlayClipAtPoint(originalClip, position);
+		//AudioSource.PlayClipAtPoint(originalClip, transform.position);
+		AudioSource.PlayClipAtPoint(originalClip, position, SoundEffVolume);
 	}
 }
