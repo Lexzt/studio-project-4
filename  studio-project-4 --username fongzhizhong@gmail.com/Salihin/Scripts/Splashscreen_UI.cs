@@ -8,6 +8,9 @@ public class Splashscreen_UI : MonoBehaviour {
 	GameObject SplashUI;
 	UIManager UIM;
 
+	GameObject SplashSound;
+	SoundManager SM;
+
 	//variable to store text upon mouse hover of START button
 	private string StartButtonTxt;
 
@@ -16,6 +19,9 @@ public class Splashscreen_UI : MonoBehaviour {
 		//assign gameobject and script
 		SplashUI = GameObject.Find("UI");
 		UIM = SplashUI.GetComponent<UIManager>();
+
+		SplashSound = GameObject.Find("Sound");
+		SM = SplashSound.GetComponent<SoundManager>();
 
 		StartButtonTxt = "Click or Press Enter";
 	}
@@ -27,17 +33,15 @@ public class Splashscreen_UI : MonoBehaviour {
 		PlayerPrefs.SetInt("splashscreen", Application.loadedLevel);
 
 		//draw splashscreen background texture
-		UIM.CreateTexture(UIM.splashscreen, 0.0f, 0.0f, Screen.width, Screen.height, false);
+		UIM.CreateTexture(UIM.splashscreen_background, 0.0f, 0.0f, Screen.width, Screen.height, false);
 
-		if(!AutoFade.Fading)
+		//if button is clicked or Enter key is pressed, fade into and go to Mainmenu scene
+		if(UIM.CreateButton(Screen.width * 0.45f, Screen.height * 0.8f, Screen.width * 0.1f, Screen.height * 0.1f, UIM.start, "STARTBUTTON")
+		  ||
+		   Input.GetKeyDown(KeyCode.Return))
 		{
-			//if button is clicked or Enter key is pressed, fade into and go to Mainmenu scene
-			if(UIM.CreateButton(Screen.width * 0.45f, Screen.height * 0.8f, Screen.width * 0.1f, Screen.height * 0.1f, "START", "STARTBUTTON")
-			  ||
-			   Input.GetKeyDown(KeyCode.Return))
-			{
-				AutoFade.LoadLevel("Mainmenu", 1.0f, 1.0f, Color.black);
-			}
+			SM.MakeSound(SM.button_click, transform.position);
+			AutoFade.LoadLevel("Mainmenu", 0.5f, 0.5f, Color.black);
 		}
 
 		if(GUI.tooltip == "STARTBUTTON")
@@ -51,7 +55,7 @@ public class Splashscreen_UI : MonoBehaviour {
 		
 		if(UIM.mouseOver)
 		{
-			UIM.CreateBox(Screen.width * 0.45f, Screen.height * 0.75f, Screen.width * 0.1f, Screen.height * 0.05f, StartButtonTxt);
+			UIM.CreateBox(Screen.width * 0.45f, Screen.height * 0.75f, Screen.width * 0.1f, Screen.height * 0.05f, UIM.enter_text);
 		}
 	}
 }
